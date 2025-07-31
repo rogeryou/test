@@ -1,0 +1,84 @@
+allwinner@allwinner-VirtualBox:~/fortix_pytorch_extension/PyTorch/third_party/fortix_sdk$ make
+g++ -Wall -O3 -std=c++17 -march=native -fPIC -Iinclude -MMD -MP -fopenmp -DUSE_CPU -c src/private_utils.cc -o obj/private_utils.o
+src/private_utils.cc: In function ‘uint32_t as_uint(float)’:
+src/private_utils.cc:296:13: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+  296 |     return *(uint32_t*)&x;
+      |             ^~~~~~~~~~~~~
+src/private_utils.cc: In function ‘float as_float(uint32_t)’:
+src/private_utils.cc:300:13: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+  300 |     return *(float*)&x;
+      |             ^~~~~~~~~~
+g++ -Wall -O3 -std=c++17 -march=native -fPIC -Iinclude -MMD -MP -fopenmp -DUSE_CPU -c src/fortix_tensor.cc -o obj/fortix_tensor.o
+g++ -Wall -O3 -std=c++17 -march=native -fPIC -Iinclude -MMD -MP -fopenmp -DUSE_CPU -c src/fortix_utils.cc -o obj/fortix_utils.o
+g++ -Wall -O3 -std=c++17 -march=native -fPIC -Iinclude -MMD -MP -fopenmp -DUSE_CPU -c src/fortix_context.cc -o obj/fortix_context.o
+g++ -Wall -O3 -std=c++17 -march=native -fPIC -Iinclude -MMD -MP -fopenmp -DUSE_CPU -c src/runtime/virtual_memory.cc -o obj/runtime/virtual_memory.o
+g++ -Wall -O3 -std=c++17 -march=native -fPIC -Iinclude -MMD -MP -fopenmp -DUSE_CPU -c src/runtime/runtime.cc -o obj/runtime/runtime.o
+g++ -Wall -O3 -std=c++17 -march=native -fPIC -Iinclude -MMD -MP -fopenmp -DUSE_CPU -c src/fortix/sim_driver.cc -o obj/fortix/sim_driver.o
+g++ -Wall -O3 -std=c++17 -march=native -fPIC -Iinclude -MMD -MP -fopenmp -DUSE_CPU -c src/fortix/sim_tlpp.cc -o obj/fortix/sim_tlpp.o
+g++ -Wall -O3 -std=c++17 -march=native -fPIC -Iinclude -MMD -MP -fopenmp -DUSE_CPU -c src/cpu/matmul.cc -o obj/cpu/matmul.o
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h:99,
+                 from src/cpu/matmul.cc:20:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/fmaintrin.h: In function ‘void do_block_avx2_i8f32(size_t, size_t, size_t, size_t, size_t, size_t, const int8_t*, const float*, float*)’:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/fmaintrin.h:63:1: error: inlining failed in call to ‘always_inline’ ‘__m256 _mm256_fmadd_ps(__m256, __m256, __m256)’: target specific option mismatch
+   63 | _mm256_fmadd_ps (__m256 __A, __m256 __B, __m256 __C)
+      | ^~~~~~~~~~~~~~~
+src/cpu/matmul.cc:143:43: note: called from here
+  143 |                 c_vec[0] = _mm256_fmadd_ps(a_vec, _mm256_loadu_ps(B_cont + q * n_blocksize + l), c_vec[0]);
+      |                            ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h:99,
+                 from src/cpu/matmul.cc:20:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/fmaintrin.h:63:1: error: inlining failed in call to ‘always_inline’ ‘__m256 _mm256_fmadd_ps(__m256, __m256, __m256)’: target specific option mismatch
+   63 | _mm256_fmadd_ps (__m256 __A, __m256 __B, __m256 __C)
+      | ^~~~~~~~~~~~~~~
+src/cpu/matmul.cc:143:43: note: called from here
+  143 |                 c_vec[0] = _mm256_fmadd_ps(a_vec, _mm256_loadu_ps(B_cont + q * n_blocksize + l), c_vec[0]);
+      |                            ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h:99,
+                 from src/cpu/matmul.cc:20:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/fmaintrin.h:63:1: error: inlining failed in call to ‘always_inline’ ‘__m256 _mm256_fmadd_ps(__m256, __m256, __m256)’: target specific option mismatch
+   63 | _mm256_fmadd_ps (__m256 __A, __m256 __B, __m256 __C)
+      | ^~~~~~~~~~~~~~~
+src/cpu/matmul.cc:144:43: note: called from here
+  144 |                 c_vec[1] = _mm256_fmadd_ps(a_vec, _mm256_loadu_ps(B_cont + q * n_blocksize + l + 8), c_vec[1]);
+      |                            ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h:99,
+                 from src/cpu/matmul.cc:20:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/fmaintrin.h:63:1: error: inlining failed in call to ‘always_inline’ ‘__m256 _mm256_fmadd_ps(__m256, __m256, __m256)’: target specific option mismatch
+   63 | _mm256_fmadd_ps (__m256 __A, __m256 __B, __m256 __C)
+      | ^~~~~~~~~~~~~~~
+src/cpu/matmul.cc:144:43: note: called from here
+  144 |                 c_vec[1] = _mm256_fmadd_ps(a_vec, _mm256_loadu_ps(B_cont + q * n_blocksize + l + 8), c_vec[1]);
+      |                            ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h:99,
+                 from src/cpu/matmul.cc:20:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/fmaintrin.h:63:1: error: inlining failed in call to ‘always_inline’ ‘__m256 _mm256_fmadd_ps(__m256, __m256, __m256)’: target specific option mismatch
+   63 | _mm256_fmadd_ps (__m256 __A, __m256 __B, __m256 __C)
+      | ^~~~~~~~~~~~~~~
+src/cpu/matmul.cc:145:43: note: called from here
+  145 |                 c_vec[2] = _mm256_fmadd_ps(a_vec, _mm256_loadu_ps(B_cont + q * n_blocksize + l + 16), c_vec[2]);
+      |                            ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h:99,
+                 from src/cpu/matmul.cc:20:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/fmaintrin.h:63:1: error: inlining failed in call to ‘always_inline’ ‘__m256 _mm256_fmadd_ps(__m256, __m256, __m256)’: target specific option mismatch
+   63 | _mm256_fmadd_ps (__m256 __A, __m256 __B, __m256 __C)
+      | ^~~~~~~~~~~~~~~
+src/cpu/matmul.cc:145:43: note: called from here
+  145 |                 c_vec[2] = _mm256_fmadd_ps(a_vec, _mm256_loadu_ps(B_cont + q * n_blocksize + l + 16), c_vec[2]);
+      |                            ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h:99,
+                 from src/cpu/matmul.cc:20:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/fmaintrin.h:63:1: error: inlining failed in call to ‘always_inline’ ‘__m256 _mm256_fmadd_ps(__m256, __m256, __m256)’: target specific option mismatch
+   63 | _mm256_fmadd_ps (__m256 __A, __m256 __B, __m256 __C)
+      | ^~~~~~~~~~~~~~~
+src/cpu/matmul.cc:146:43: note: called from here
+  146 |                 c_vec[3] = _mm256_fmadd_ps(a_vec, _mm256_loadu_ps(B_cont + q * n_blocksize + l + 24), c_vec[3]);
+      |                            ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h:99,
+                 from src/cpu/matmul.cc:20:
+/usr/lib/gcc/x86_64-linux-gnu/11/include/fmaintrin.h:63:1: error: inlining failed in call to ‘always_inline’ ‘__m256 _mm256_fmadd_ps(__m256, __m256, __m256)’: target specific option mismatch
+   63 | _mm256_fmadd_ps (__m256 __A, __m256 __B, __m256 __C)
+      | ^~~~~~~~~~~~~~~
+src/cpu/matmul.cc:146:43: note: called from here
+  146 |                 c_vec[3] = _mm256_fmadd_ps(a_vec, _mm256_loadu_ps(B_cont + q * n_blocksize + l + 24), c_vec[3]);
+      |                            ~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+make: *** [Makefile:95: obj/cpu/matmul.o] Error 1
